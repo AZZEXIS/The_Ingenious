@@ -1,12 +1,14 @@
 #include "minimap.h"
 int main()
 {
-text t,saisir;
+unsigned int score;
+text t,saisir,score_text;
+strcpy(t.text,"\0");
 SDL_Event event;
 int saisie=0,done=0;
 minimap m;
 joueur j;
-char nom[50], Fichierscore[50];
+char nom[50]="",Fichierscore[50]="Fichierscore";
 Image backg;
 SDL_Rect cam;
 SDL_Surface *screen;
@@ -19,6 +21,7 @@ return 1;
 }
 TTF_Init();
 init_text(&t);
+init_text_score(&score_text);
 init_text_saisir(&saisir);
 initBackground(&backg);
 initminimap(&m);
@@ -26,37 +29,22 @@ init_Joueur(&j);
 init_camera(&cam); 
 while(!done)
 {
-if(saisie==0)
 
-//entrer_nom(t,screen);//
-while(SDL_PollEvent(&event))
-{
-	switch(event.type)
-	{
-		
-		case SDL_KEYDOWN:
-		{
-		
-		switch(event.key.keysym.sym)
-		{
-		
-		case SDLK_RETURN:
-		saisie=1;
-		break;
-		}
-		}
-
-	}
-
-}
-    
 SDL_BlitSurface(backg.img,&backg.pos2,screen,&backg.pos1);
 SDL_BlitSurface(j.img_perso,NULL,screen,&j.pos_perso);
 afficher(m,screen);
 saisir_nom(saisir,screen);
+t.surface_texte=TTF_RenderText_Solid(t.font,t.text,t.text_color);
+SDL_BlitSurface (t.surface_texte, NULL, screen, &t.position);  
+if (saisie==0)
+entrer_nom(t,screen,&event,&saisie);
+MAJMinimap(j.pos_perso, &m,cam,50);
 
+score=SDL_GetTicks();
+sprintf(score_text.text, "%d", score);
+afficher_score(score_text,screen);
 SDL_Flip(screen);
-//MAJMinimap(j.pos_perso, &m,cam,60);
+
 if (saisie==1)
 {
 while(SDL_PollEvent(&event))
@@ -95,10 +83,9 @@ while(SDL_PollEvent(&event))
 }
 }
 }
-unsigned int score;
-score=SDL_GetTicks();
-//meilleur(Fichierscore,score,nom);
-//sauvegarder(score,nom,Fichierscore);
+
+meilleur(Fichierscore,&score,nom);
+
 
 
 

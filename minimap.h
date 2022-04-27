@@ -47,11 +47,13 @@ void init_Joueur(joueur *j);
 void MAJMinimap(SDL_Rect posJoueur,  minimap * m, SDL_Rect camera, int redimensionnement);
 void afficher (minimap m, SDL_Surface * screen);
 void Liberer (minimap * m);
-void sauvegarder( int score, char nomjoueur[], char nomfichier[]);
-void meilleur( char nomfichier[], int *score, char nomjoueur[]);
+void sauvegarder( unsigned int score, char nomjoueur[], char nomfichier[]);
+void meilleur( char nomfichier[], unsigned int *score, char nomjoueur[]);
 void init_text(text *t);
 void init_text_saisir(text *t);
+void init_text_score(text *t);
+void afficher_score(text t,SDL_Surface *screen);
 void saisir_nom(text t,SDL_Surface *screen);
-void entrer_nom(text t,SDL_Surface *screen);
+void entrer_nom(text t,SDL_Surface *screen,SDL_Event *event, int *saisie);
 #endif
 

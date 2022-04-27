@@ -53,7 +53,7 @@ int posJoueurABSx,posJoueurABSy;
 posJoueurABSx= posJoueur.x + camera.x;
 posJoueurABSy= posJoueur.y + camera.y;
 m->pos_bonhomme.x=posJoueurABSx*redimensionnement/100;
-m->pos_bonhomme.y=posJoueurABSy*redimensionnement/100;
+m->pos_bonhomme.y=posJoueurABSy*redimensionnement/100-80;
 
 }
 void afficher (minimap m, SDL_Surface * screen)
@@ -66,24 +66,29 @@ void Liberer (minimap * m)
 SDL_FreeSurface(m->img_miniature);
 SDL_FreeSurface(m->img_bonhomme);
 }
-void sauvegarder( int score, char nomjoueur[], char nomfichier[])
+void sauvegarder( unsigned int score, char nomjoueur[], char nomfichier[])
 {
 FILE *f=NULL;
 f=fopen(nomfichier,"w");
 if(f!=NULL)
-fprintf(f,"%s  %d \n",nomjoueur,score);
+fprintf(f,"%s  %d ",nomjoueur,score);
 else 
 printf("erreur ouverture fichier!");
 fclose(f);
 
 }
-void meilleur( char nomfichier[], int *score, char nomjoueur[])
+void meilleur( char nomfichier[], unsigned int *score, char nomjoueur[])
 {
-char nom_meilleur_joueur[50];
-int meilleur_score;
+char nom_meilleur_joueur[50]="";
+unsigned int meilleur_score;
 FILE *f=NULL;
-f=fopen("nomfichier","r");
+f=fopen(nomfichier,"r");
+
 if(f!=NULL)
+{
+if(f==EOF)
+sauvegarder(*score,nomjoueur,nomfichier);
+else 
 {
 fscanf(f,"%s %d",nom_meilleur_joueur,&meilleur_score);
 
@@ -91,9 +96,10 @@ if(*score>meilleur_score)
 {
 	meilleur_score=(*score);
 	strcpy(nom_meilleur_joueur,nomjoueur);
+	sauvegarder( meilleur_score,nom_meilleur_joueur,nomfichier);
 
 }
-
+}
 
 }
 
@@ -112,12 +118,24 @@ t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",70
 }
 void init_text(text *t)
 {
-t->position.x=300;
+t->position.x=600;
 t->position.y=150;
 t->text_color.r=0;
 t->text_color.g=255;
 t->text_color.b=255;
-t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",200);
+t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",70);
+
+
+
+}
+void init_text_score(text *t)
+{
+t->position.x=50;
+t->position.y=150;
+t->text_color.r=0;
+t->text_color.g=255;
+t->text_color.b=255;
+t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",70);
 
 
 
@@ -129,13 +147,188 @@ SDL_BlitSurface (t.surface_texte, NULL, screen, &t.position);
 
 
 }
-void entrer_nom(text t,SDL_Surface *screen)
+void afficher_score(text t,SDL_Surface *screen)
 {
-
 t.surface_texte=TTF_RenderText_Solid(t.font,t.text,t.text_color);
-SDL_BlitSurface (t.surface_texte, NULL, screen, &t.position);  
+SDL_BlitSurface (t.surface_texte, NULL, screen, &t.position);
+
 
 }
+void entrer_nom(text t,SDL_Surface *screen,SDL_Event *event, int *saisie)
+{
+if(*saisie==0)
+{
+
+while(SDL_PollEvent(&(*event)))
+{
+switch(event->type)
+	{
+case SDL_KEYDOWN:
+{
+            switch(event->key.keysym.sym)
+            {
+            case SDLK_a:
+           
+strcat(t.text,"a");
+
+                break ;
+               
+            case SDLK_z:
+strcat(t.text,"z");
+
+                break ;
+               
+            case SDLK_e:
+strcat(t.text,"e");
+
+                break ;
+               
+            case SDLK_r:
+strcat(t.text,"r");
+
+                break ;
+               
+            case SDLK_t:
+strcat(t.text,"t");
+
+                break ;
+               
+            case SDLK_y:
+strcat(t.text,"y");
+
+                break ;
+               
+            case SDLK_u:
+strcat(t.text,"u");
+
+                break ;
+               
+            case SDLK_i:
+strcat(t.text,"i");
+
+                break ;
+               
+            case SDLK_o:
+strcat(t.text,"o");
+
+                break ;
+               
+            case SDLK_p:
+strcat(t.text,"p");
+
+                break ;
+                           
+               
+            case SDLK_q:
+strcat(t.text,"q");
+
+                break ;
+               
+            case SDLK_s:
+strcat(t.text,"s");
+
+                break ;
+               
+            case SDLK_d:
+strcat(t.text,"d");
+
+                break ;
+               
+            case SDLK_f:
+strcat(t.text,"f");
+
+                break ;
+               
+            case SDLK_g:
+strcat(t.text,"g");
+
+                break ;
+               
+            case SDLK_h:
+strcat(t.text,"h");
+
+                break ;
+               
+            case SDLK_j:
+strcat(t.text,"j");
+
+                break ;
+               
+            case SDLK_l:
+strcat(t.text,"l");
+
+                break ;
+               
+            case SDLK_m:
+strcat(t.text,"m");
+break;
+            case SDLK_k:
+strcat(t.text,"k");
+
+       break;  
+            case SDLK_w:
+           
+strcat(t.text,"w");
+
+                break ;
+               
+            case SDLK_x:
+strcat(t.text,"x");
+
+                break ;
+               
+            case SDLK_c:
+strcat(t.text,"c");
+
+                break ;
+               
+            case SDLK_v:
+strcat(t.text,"v");
+
+                break ;
+               
+            case SDLK_b:
+strcat(t.text,"b");
+
+                break ;
+               
+            case SDLK_n:
+strcat(t.text,"n");
+
+                break ;
+               
+            case SDLK_SPACE:
+strcat(t.text," ");
+
+                break ;
+               
+            case SDLK_RETURN:
+(*saisie)=1;
+
+                break ;
+                         case SDLK_BACKSPACE:
+                         t.text[strlen(t.text)-1]='\0';
+
+                break ;
+                  }
+                  
+                  
+                  }
+                   }
+                   }
+                   }
+t.surface_texte=TTF_RenderText_Solid(t.font,t.text,t.text_color);
+SDL_BlitSurface (t.surface_texte, NULL, screen, &t.position);  
+SDL_Flip(screen);
+
+
+
+
+
+}
+
+ 
+
 
 
 
