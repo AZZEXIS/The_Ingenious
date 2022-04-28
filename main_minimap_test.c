@@ -18,7 +18,7 @@ SDL_Event event;
 int saisie=0,done=0;
 minimap m;
 joueur j;
-char nom[50]="",Fichierscore[50]="Fichierscore.txt";
+char Fichierscore[50]="Fichierscore.txt";
 Image backg;
 SDL_Rect cam;
 SDL_Surface *screen;
@@ -53,7 +53,6 @@ MAJMinimap(j.pos_perso, &m,cam,50);
 score=SDL_GetTicks();
 sprintf(score_text.text, "%d", score);
 afficher_score(score_text,screen);
-meilleur(Fichierscore,&score,nom);
 SDL_Flip(screen);
 
 if (saisie==1)
@@ -95,7 +94,7 @@ while(SDL_PollEvent(&event))
 }
 }
 
-meilleur(Fichierscore,&score,nom);
+meilleur(Fichierscore,&score,t.text);
 
 
 
