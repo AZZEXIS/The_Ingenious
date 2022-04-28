@@ -9,34 +9,50 @@
 #include <time.h>
 #define SCREEN_W 1914
 #define SCREEN_H 884
+/**
+* @struct minimap
+* @brief struct for minimap
+*/
 typedef struct 
 {
-	SDL_Surface* img_miniature;
-	SDL_Rect  pos_minimap;
-	SDL_Surface* img_bonhomme;
-	SDL_Rect  pos_bonhomme;
+	SDL_Surface* img_miniature;/*!< image minimap*/
+	SDL_Rect  pos_minimap;/*!< pos minimap ecran*/
+	SDL_Surface* img_bonhomme;/*!< image dot*/
+	SDL_Rect  pos_bonhomme;/*!< pos dot ecran*/
 	
 }minimap;
+/**
+* @struct joueur
+* @brief struct for joueur
+*/
 typedef struct
 {
-	SDL_Surface* img_perso;
-	SDL_Rect  pos_perso;
+	SDL_Surface* img_perso;/*!< image perso*/
+	SDL_Rect  pos_perso;/*!< pos perso ecran*/
 
 }joueur;
+/**
+* @struct Image
+* @brief struct for Image
+*/
 struct Image
 {
-SDL_Rect pos1;
-SDL_Rect pos2;
-SDL_Surface *img;
+SDL_Rect pos1; /*!< pos image dans l'ecran*/
+SDL_Rect pos2;/*!< la partie d'image qui va etre afficher*/
+SDL_Surface *img;/*!< image */
 };
 typedef struct Image Image;
+/**
+* @struct text
+* @brief struct for text
+*/
 typedef struct
 {
-	SDL_Rect position;
-	TTF_Font *font;
-	SDL_Surface *surface_texte;
-	SDL_Color text_color;
-	char text[50];
+	SDL_Rect position;/*!< pos text dans l'ecran*/
+	TTF_Font *font;/*!< font du text*/
+	SDL_Surface *surface_texte;/*!< affichage text*/
+	SDL_Color text_color;/*!< couleur text*/
+	char text[50];/*!< chaine text*/
 
 
 }
