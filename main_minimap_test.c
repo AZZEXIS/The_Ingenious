@@ -94,6 +94,7 @@ while(SDL_PollEvent(&event))
 }
 
 meilleur(Fichierscore,&score,t.text);
+sauvegarder(score,t.text,Fichierscore);
 
 
 

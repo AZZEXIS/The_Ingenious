@@ -121,7 +121,7 @@ void sauvegarder( unsigned int score, char nomjoueur[], char nomfichier[])
 FILE *f=NULL;
 f=fopen(nomfichier,"w");
 if(f!=NULL)
-fprintf(f,"%s  %d ",nomjoueur,score);
+fprintf(f,"%s %d ",nomjoueur,score);
 else 
 printf("erreur ouverture fichier!");
 fclose(f);
@@ -134,32 +134,25 @@ fclose(f);
 */
 void meilleur( char nomfichier[], unsigned int *score, char nomjoueur[])
 {
-char nom_meilleur_joueur[50]="";
-unsigned int meilleur_score;
-FILE *f=NULL;
-f=fopen(nomfichier,"r");
-
-if(f!=NULL)
-{
-//if(f==EOF)
-fscanf(f,"%s %d",nom_meilleur_joueur,&meilleur_score);
-printf(" %s %d",nom_meilleur_joueur,meilleur_score);
-sauvegarder(meilleur_score,nom_meilleur_joueur,nomfichier);
-fclose(f);
-/*else 
-{
-fscanf(f,"%s %d",nom_meilleur_joueur,&meilleur_score);
-
-if(*score>meilleur_score)
-{
-	meilleur_score=(*score);
-	strcpy(nom_meilleur_joueur,nomjoueur);
-	sauvegarder( meilleur_score,nom_meilleur_joueur,nomfichier);
-
-}
-}*/
-
-}
+FILE* f= NULL;
+    char chaine[50] = "";
+ unsigned int x;
+ char ch[50];
+    f= fopen(nomfichier, "r");
+ 
+    if (f != NULL)
+    {
+        while (fgets(chaine, 50, f) != NULL)
+        {
+            sscanf(chaine,"%s %d",ch,&x);
+        if(x>*score)
+        {
+        (*score)=x;
+        strcpy(nomjoueur,ch);
+        }
+        }
+        fclose(f);
+    }
 
 }
 /**
@@ -203,12 +196,12 @@ t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",70
 */
 void init_text_score(text *t)
 {
-t->position.x=800;
-t->position.y=0;
+t->position.x=900;
+t->position.y=20;
 t->text_color.r=0;
 t->text_color.g=255;
 t->text_color.b=255;
-t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",70);
+t->font=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",45);
 
 
 
