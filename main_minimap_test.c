@@ -43,16 +43,15 @@ while(!done)
 SDL_BlitSurface(backg.img,&backg.pos2,screen,&backg.pos1);
 SDL_BlitSurface(j.img_perso,NULL,screen,&j.pos_perso);
 afficher(m,screen);
-saisir_nom(saisir,screen);
-t.surface_texte=TTF_RenderText_Solid(t.font,t.text,t.text_color);
-SDL_BlitSurface (t.surface_texte, NULL, screen, &t.position);  
-if (saisie==0)
-entrer_nom(t,screen,&event,&saisie);
+entrer_nom(&t,screen,event,&saisie);
+t.position.x=0;
+t.position.y=0;
 MAJMinimap(j.pos_perso, &m,cam,50);
 
 score=SDL_GetTicks();
 sprintf(score_text.text, "%d", score);
-afficher_score(score_text,screen);
+afficher_text(score_text,screen);
+afficher_text(t,screen);
 SDL_Flip(screen);
 
 if (saisie==1)

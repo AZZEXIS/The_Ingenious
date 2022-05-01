@@ -68,8 +68,8 @@ void meilleur( char nomfichier[], unsigned int *score, char nomjoueur[]);
 void init_text(text *t);
 void init_text_saisir(text *t);
 void init_text_score(text *t);
-void afficher_score(text t,SDL_Surface *screen);
+void afficher_text(text t,SDL_Surface *screen);
 void saisir_nom(text t,SDL_Surface *screen);
-void entrer_nom(text t,SDL_Surface *screen,SDL_Event *event, int *saisie);
+void entrer_nom(text* t,SDL_Surface *screen,SDL_Event event, int *saisie);
 #endif
 
